@@ -3,12 +3,6 @@ import { systems } from "@/lib/systems";
 import { ConsoleHeader } from "@/components/ConsoleHeader";
 import { SystemDetailClient } from "@/components/SystemDetailClient";
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return systems.map((system) => ({ slug: system.slug }));
-}
-
 export default function SystemDetailPage({ params }: { params: { slug: string } }) {
   const normalizedSlug = decodeURIComponent(params.slug).toLowerCase();
   const system = systems.find((item) => item.slug === normalizedSlug);
