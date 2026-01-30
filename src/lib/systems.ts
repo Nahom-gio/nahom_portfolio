@@ -1,12 +1,12 @@
-﻿export const capabilities = [
-  "Temporal",
-  "NATS",
-  "Supabase",
-  "MinIO",
-  "PDF/Excel",
-  "Auth",
-  "Analytics",
-  "Deploy",
+export const capabilities = [
+  "Workflow Orchestration",
+  "Event-Driven Messaging",
+  "Data Platform + Analytics",
+  "Object Storage",
+  "Reporting & Exports",
+  "Secure Access Control",
+  "Metrics + Aggregations",
+  "Production Deployment",
 ] as const;
 
 export type Capability = (typeof capabilities)[number];
@@ -41,6 +41,11 @@ export type System = {
   mission: string;
   tags: string[];
   capabilities: Capability[];
+  focus: {
+    primary: Capability[];
+    supporting: Capability[];
+    optional: Capability[];
+  };
   stack: {
     core: string[];
     data: string[];
@@ -64,12 +69,32 @@ export const systems: System[] = [
     timeframe: "Aug 2025 – 2026",
     mission: "Document parsing + RFQ/quote workflow automation.",
     tags: ["Parsing", "Workflow", "Multi-tenant", "Pricing"],
-    capabilities: ["Temporal", "NATS", "PDF/Excel", "Auth", "Analytics"],
+    capabilities: [
+      "Workflow Orchestration",
+      "Event-Driven Messaging",
+      "Reporting & Exports",
+      "Secure Access Control",
+      "Metrics + Aggregations",
+      "Production Deployment",
+    ],
+    focus: {
+      primary: ["Workflow Orchestration", "Reporting & Exports"],
+      supporting: ["Event-Driven Messaging", "Secure Access Control"],
+      optional: ["Metrics + Aggregations", "Production Deployment"],
+    },
     stack: {
       core: ["TypeScript", "Node.js", "NestJS", "CQRS", "DDD", "Clean Architecture"],
       data: ["MongoDB", "YAML config"],
       infra: ["Temporal", "NATS"],
-      integrations: ["Shopify API", "Gmail API", "LangChain/LangGraph", "pdf-parse", "csv-parser", "xlsx", "OCR adapter"],
+      integrations: [
+        "Shopify API",
+        "Gmail API",
+        "LangChain/LangGraph",
+        "pdf-parse",
+        "csv-parser",
+        "xlsx",
+        "OCR adapter",
+      ],
     },
     highlights: [
       "Built multi-format parsing pipeline for PDF/CSV/Excel attachments: text + structured rows + metadata enrichment",
@@ -141,12 +166,32 @@ export const systems: System[] = [
     timeframe: "Oct 2025 – Jan 2026",
     mission: "Emissions intelligence platform with analytics + watchlist alerts.",
     tags: ["Analytics", "Watchlists", "Subscriptions"],
-    capabilities: ["Supabase", "Auth", "Analytics", "Deploy"],
+    capabilities: [
+      "Data Platform + Analytics",
+      "Secure Access Control",
+      "Metrics + Aggregations",
+      "Production Deployment",
+      "Reporting & Exports",
+    ],
+    focus: {
+      primary: ["Data Platform + Analytics", "Metrics + Aggregations", "Secure Access Control"],
+      supporting: ["Production Deployment", "Reporting & Exports"],
+      optional: ["Event-Driven Messaging"],
+    },
     stack: {
       core: ["Next.js 15", "React 19", "TypeScript", "Tailwind"],
       data: ["Supabase (Postgres + Edge Functions)", "Zod", "Sanity"],
       infra: ["PostHog", "Sentry"],
-      integrations: ["Clerk", "Stripe", "Leaflet", "TomTom", "Turf.js", "React Email", "Resend", "Recharts"],
+      integrations: [
+        "Clerk",
+        "Stripe",
+        "Leaflet",
+        "TomTom",
+        "Turf.js",
+        "React Email",
+        "Resend",
+        "Recharts",
+      ],
     },
     highlights: [
       "Typed Supabase DAL for flights, leaderboards, routes, airports, aircraft, ownership inference, watchlists, subscriptions, profiles",
@@ -212,7 +257,18 @@ export const systems: System[] = [
     timeframe: "Oct 2025 – Jan 2026",
     mission: "Enterprise education backend: assessment import/export + invoicing PDFs.",
     tags: ["Exports", "Storage", "Invoicing"],
-    capabilities: ["Temporal", "MinIO", "PDF/Excel", "Auth", "Deploy"],
+    capabilities: [
+      "Workflow Orchestration",
+      "Reporting & Exports",
+      "Object Storage",
+      "Secure Access Control",
+      "Production Deployment",
+    ],
+    focus: {
+      primary: ["Reporting & Exports", "Workflow Orchestration"],
+      supporting: ["Object Storage", "Secure Access Control"],
+      optional: ["Production Deployment"],
+    },
     stack: {
       core: ["NestJS", "TypeScript", "CQRS"],
       data: ["PostgreSQL", "Mikro-ORM", "Redis"],
@@ -284,7 +340,16 @@ export const systems: System[] = [
     timeframe: "Aug 2025 – Dec 2025",
     mission: "Company website + secure contact API + deployment.",
     tags: ["Web", "Security", "Deploy"],
-    capabilities: ["Auth", "Deploy"],
+    capabilities: [
+      "Secure Access Control",
+      "Production Deployment",
+      "Metrics + Aggregations",
+    ],
+    focus: {
+      primary: ["Production Deployment", "Secure Access Control"],
+      supporting: ["Metrics + Aggregations"],
+      optional: ["Event-Driven Messaging"],
+    },
     stack: {
       core: ["React 18", "Vite", "React Router 6", "Tailwind", "Radix UI"],
       data: ["Express"],
@@ -357,12 +422,20 @@ export const profile = {
   github: "https://github.com/Nahom-gio",
   bio: "Backend engineer focused on systems that ingest messy data, orchestrate long-running workflows, and ship observable infrastructure for fast decision-making.",
   bio2: "I build resilient pipelines, automation, and analytics with a bias for clean contracts, strict validation, and operational clarity.",
+  range: "I design backend systems across domains; tooling changes based on constraints, not preference.",
   signals: [
     "Workflow orchestration across Temporal + event-driven pipelines",
     "Parsing + normalization for multi-format exports and imports",
     "Secure multi-tenant APIs with auditable access paths",
     "Operational analytics with watchlists, alerts, and summaries",
     "PDF/Excel automation with integrity checks",
+  ],
+  transferables: [
+    "Kafka / RabbitMQ",
+    "AWS S3",
+    "Prisma / TypeORM",
+    "Kubernetes fundamentals",
+    "gRPC / GraphQL",
   ],
 };
 

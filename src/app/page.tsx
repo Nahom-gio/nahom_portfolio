@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ConsoleHeader } from "@/components/ConsoleHeader";
 import { CommandBar } from "@/components/CommandBar";
 import { SystemTile } from "@/components/SystemTile";
@@ -27,6 +27,7 @@ export default function HomePage() {
             <p className="mt-2 text-lg text-zinc-300">{profile.role}</p>
             <p className="mt-4 text-sm text-zinc-400">{profile.bio}</p>
             <p className="mt-2 text-sm text-zinc-400">{profile.bio2}</p>
+            <p className="mt-3 text-sm text-emerald-200/80">{profile.range}</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Button asChild size="sm">
@@ -104,6 +105,26 @@ export default function HomePage() {
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
               {signal}
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="glass-panel border border-border bg-zinc-900/70 p-6">
+        <div className="flex items-center justify-between text-xs text-zinc-500">
+          <span className="uppercase tracking-[0.3em]">Transferable Stack</span>
+          <span className="terminal-accent">adaptable</span>
+        </div>
+        <p className="mt-3 text-sm text-zinc-400">
+          Comfortable adapting to adjacent infrastructure and tooling when constraints shift.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {profile.transferables.map((item) => (
+            <span
+              key={item}
+              className="rounded-full border border-border bg-zinc-950/60 px-3 py-1 text-xs text-zinc-300"
+            >
+              {item}
+            </span>
           ))}
         </div>
       </section>

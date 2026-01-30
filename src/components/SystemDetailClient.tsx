@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { System, systems } from "@/lib/systems";
@@ -6,7 +6,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { ArchitectureMini } from "@/components/ArchitectureMini";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
-import { capabilities } from "@/lib/systems";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -150,26 +149,38 @@ export function SystemDetailClient({ system }: { system: System }) {
         </Card>
 
         <Card className="glass-panel border border-border bg-zinc-900/70 p-5">
-          <h3 className="text-sm uppercase tracking-[0.2em] text-zinc-500">Capability Profile</h3>
-          <div className="mt-4 grid gap-2 text-xs text-zinc-400">
-            {capabilities.map((capability) => {
-              const active = system.capabilities.includes(capability);
-              return (
-                <div
-                  key={capability}
-                  className={`flex items-center justify-between rounded-lg border px-3 py-2 ${
-                    active
-                      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
-                      : "border-border bg-zinc-950/50"
-                  }`}
-                >
-                  <span>{capability}</span>
-                  <span className="uppercase tracking-[0.2em]">
-                    {active ? "active" : "idle"}
-                  </span>
-                </div>
-              );
-            })}
+          <h3 className="text-sm uppercase tracking-[0.2em] text-zinc-500">System Focus</h3>
+          <div className="mt-4 space-y-4 text-xs text-zinc-300">
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Primary Focus</div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {system.focus.primary.map((capability) => (
+                  <Badge key={capability} variant="glow">
+                    {capability}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Supporting Layer</div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {system.focus.supporting.map((capability) => (
+                  <Badge key={capability} variant="outline">
+                    {capability}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Optional Layer</div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {system.focus.optional.map((capability) => (
+                  <Badge key={capability} variant="default">
+                    {capability}
+                  </Badge>
+                ))}
+              </div>
+            </div>
           </div>
         </Card>
 
