@@ -1,9 +1,14 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import { systems } from "@/lib/systems";
 import { ConsoleHeader } from "@/components/ConsoleHeader";
 import { SystemDetailClient } from "@/components/SystemDetailClient";
 
-export default function SystemDetailPage({ params }: { params: { slug: string } }) {
-  const normalizedSlug = decodeURIComponent(params.slug).toLowerCase();
+export default function SystemDetailPage() {
+  const params = useParams<{ slug?: string | string[] }>();
+  const rawSlug = Array.isArray(params?.slug) ? params?.slug[0] : params?.slug;
+  const normalizedSlug = rawSlug ? decodeURIComponent(rawSlug).toLowerCase() : "";
   const system = systems.find((item) => item.slug === normalizedSlug);
 
   if (!system) {
@@ -13,7 +18,7 @@ export default function SystemDetailPage({ params }: { params: { slug: string } 
         <section className="glass-panel border border-border bg-zinc-900/70 p-8">
           <div className="text-xs uppercase tracking-[0.3em] text-zinc-500">Case file not found</div>
           <h1 className="mt-3 text-2xl font-semibold text-zinc-100">
-            Unknown system: {params.slug}
+            Unknown system: {rawSlug ?? ""}
           </h1>
           <p className="mt-2 text-sm text-zinc-400">
             Available systems are listed below.
