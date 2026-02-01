@@ -4,13 +4,15 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 disabled:pointer-events-none disabled:opacity-50",
+  "focus-outline inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/20 border border-emerald-500/30",
-        secondary: "bg-zinc-900/70 text-zinc-100 hover:bg-zinc-900 border border-border",
-        ghost: "text-zinc-100 hover:bg-zinc-900/60",
+        default:
+          "bg-[color:var(--accent2)] text-[color:var(--text)] border border-[color:var(--border)] hover:border-[color:var(--accent)]",
+        secondary:
+          "bg-[color:var(--panel2)] text-[color:var(--text)] border border-[color:var(--border)] hover:border-[color:var(--accent)]",
+        ghost: "text-[color:var(--text)] hover:bg-[color:var(--panel2)] border border-transparent",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -33,13 +35,13 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
-    const Comp = (props as { asChild?: boolean }).asChild ? Slot : "button";
+  ({ className, variant, size, asChild, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        {...props}
+        {...(props as any)}
       />
     );
   }

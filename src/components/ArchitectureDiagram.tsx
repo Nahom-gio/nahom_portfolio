@@ -4,14 +4,14 @@ export function ArchitectureDiagram({ diagram }: { diagram: Diagram }) {
   return (
     <svg
       viewBox={diagram.viewBox}
-      className="h-full w-full rounded-xl border border-border bg-zinc-950/60"
+      className="h-full w-full rounded-xl border border-app bg-panel2"
       role="img"
       aria-label="System architecture diagram"
     >
       <defs>
         <linearGradient id="nodeFill" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stopColor="rgba(24,24,27,0.9)" />
-          <stop offset="100%" stopColor="rgba(9,9,11,0.9)" />
+          <stop offset="0%" stopColor="var(--panel)" />
+          <stop offset="100%" stopColor="var(--panel2)" />
         </linearGradient>
       </defs>
       {diagram.edges.map((edge, index) => {
@@ -29,7 +29,7 @@ export function ArchitectureDiagram({ diagram }: { diagram: Diagram }) {
               y1={fromY}
               x2={toX}
               y2={toY}
-              stroke="rgba(56, 189, 248, 0.45)"
+              stroke="var(--accent2)"
               strokeWidth="1.5"
               strokeDasharray="4 4"
             />
@@ -37,7 +37,7 @@ export function ArchitectureDiagram({ diagram }: { diagram: Diagram }) {
               <text
                 x={(fromX + toX) / 2}
                 y={(fromY + toY) / 2 - 6}
-                fill="rgba(148, 163, 184, 0.8)"
+                fill="var(--muted)"
                 fontSize="10"
                 fontFamily="var(--font-mono)"
               >
@@ -56,14 +56,14 @@ export function ArchitectureDiagram({ diagram }: { diagram: Diagram }) {
             height={node.height ?? 46}
             rx="10"
             fill="url(#nodeFill)"
-            stroke="rgba(63, 63, 70, 0.8)"
+            stroke="var(--border)"
             strokeWidth="1.2"
           />
           <text
             x={node.x + (node.width ?? 120) / 2}
             y={node.y + (node.height ?? 46) / 2 + 4}
             textAnchor="middle"
-            fill="rgba(226, 232, 240, 0.9)"
+            fill="var(--text)"
             fontSize="11"
             fontFamily="var(--font-mono)"
           >

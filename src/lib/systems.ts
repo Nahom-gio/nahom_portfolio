@@ -62,6 +62,21 @@ export type System = {
   complexity: number;
 };
 
+export type IncidentEvent = {
+  ts: string;
+  title: string;
+  detail: string;
+  status: "detected" | "mitigating" | "resolved" | "postmortem";
+};
+
+export type SloMetric = {
+  system: string;
+  availability: string;
+  latencyP95: string;
+  errorBudget: string;
+  window: string;
+};
+
 export const systems: System[] = [
   {
     name: "Quote Commerce",
@@ -469,5 +484,63 @@ export const liveLogs = [
     level: "ERROR",
     system: "Genesis AI Labs Website",
     message: "Contact API rate limiter triggered for 3rd burst window.",
+  },
+];
+
+export const incidentPlayback: IncidentEvent[] = [
+  {
+    ts: "2026-01-22 09:41:12",
+    title: "Queue backlog spike detected",
+    detail: "Temporal workflow queue depth crossed 4x baseline after supplier batch upload.",
+    status: "detected",
+  },
+  {
+    ts: "2026-01-22 09:44:33",
+    title: "Throttle + shed non-critical tasks",
+    detail: "Paused low-priority enrichment and reallocated workers to parsing.",
+    status: "mitigating",
+  },
+  {
+    ts: "2026-01-22 10:03:27",
+    title: "Backlog cleared",
+    detail: "Queue depth returned to nominal range; SLA breach avoided.",
+    status: "resolved",
+  },
+  {
+    ts: "2026-01-22 16:20:10",
+    title: "Postmortem actioned",
+    detail: "Added burst-limit guardrails and pre-parse sizing to prevent recurrence.",
+    status: "postmortem",
+  },
+];
+
+export const sloDashboard: SloMetric[] = [
+  {
+    system: "Quote Commerce",
+    availability: "99.93%",
+    latencyP95: "420ms",
+    errorBudget: "18% remaining",
+    window: "30d",
+  },
+  {
+    system: "Carbon Sky Index",
+    availability: "99.98%",
+    latencyP95: "510ms",
+    errorBudget: "42% remaining",
+    window: "30d",
+  },
+  {
+    system: "E.D.G.E Platform",
+    availability: "99.91%",
+    latencyP95: "680ms",
+    errorBudget: "9% remaining",
+    window: "30d",
+  },
+  {
+    system: "Genesis AI Labs Website",
+    availability: "99.95%",
+    latencyP95: "240ms",
+    errorBudget: "27% remaining",
+    window: "30d",
   },
 ];
