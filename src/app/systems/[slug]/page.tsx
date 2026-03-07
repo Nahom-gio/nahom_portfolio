@@ -15,12 +15,12 @@ export default function SystemDetailPage() {
     return (
       <main className="mx-auto flex min-h-screen max-w-6xl flex-col gap-8 px-6 py-10">
         <ConsoleHeader />
-        <section className="glass-panel border border-border bg-zinc-900/70 p-8">
-          <div className="text-xs uppercase tracking-[0.3em] text-zinc-500">Case file not found</div>
-          <h1 className="mt-3 text-2xl font-semibold text-zinc-100">
+        <section className="glass-panel border border-app bg-panel p-8">
+          <div className="text-xs uppercase tracking-[0.3em] text-muted">Case file not found</div>
+          <h1 className="mt-3 text-2xl font-semibold text-app">
             Unknown system: {rawSlug ?? ""}
           </h1>
-          <p className="mt-2 text-sm text-zinc-400">
+          <p className="mt-2 text-sm text-muted">
             Available systems are listed below.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
@@ -28,7 +28,7 @@ export default function SystemDetailPage() {
               <a
                 key={item.slug}
                 href={`/systems/${item.slug}`}
-                className="rounded-full border border-border bg-zinc-950/60 px-3 py-1 text-xs text-emerald-200"
+                className="rounded-full border border-app bg-panel2 px-3 py-1 text-xs text-accent"
               >
                 {item.name}
               </a>
